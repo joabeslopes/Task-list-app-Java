@@ -31,11 +31,11 @@ public class AddNote extends JFrame {
 
 	public AddNote() {
 		setResizable(false);
+		setSize(630, 470);
+		setLocationRelativeTo(null);
 		setTitle("Task List");
-		SqliteConnector con = new SqliteConnector();
-		
-		setBounds(100, 100, 630, 470);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		
 		JPanel background = new JPanel();
 		background.setBackground(new Color(128, 0, 128));

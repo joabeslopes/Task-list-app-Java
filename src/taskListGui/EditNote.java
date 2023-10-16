@@ -31,10 +31,11 @@ public class EditNote extends JFrame {
 	public EditNote(Note note) {
 		
 		setResizable(false);
+		setSize(630, 470);
+		setLocationRelativeTo(null);
 		setTitle("Task List");
-		
-		setBounds(100, 100, 630, 470);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		
 		JPanel background = new JPanel();
 		background.setBackground(new Color(128, 0, 128));
