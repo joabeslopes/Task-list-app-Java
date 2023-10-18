@@ -145,7 +145,42 @@ public class SqliteConnector {
 		
 	}
 	
+	public void switchPositionAdd(List<Note> allNotes, int desiredPosition) {
+		int listSize = allNotes.size();
+		for (int i=0; i<listSize; i++) {
+			Note someNote = allNotes.get(i);
+			if( someNote.getPosition() == desiredPosition ) {
+				
+				Note lastNote = allNotes.get(listSize-1);
+				someNote.setPosition( lastNote.getPosition()+1 );
+				updateNote(someNote);
+				break;
+			}
+			
+		}
+		
+	}
 	
+	
+	public void switchPositionEdit(List<Note> allNotes, Note actualNote, int desiredPosition) {
+		int listSize = allNotes.size();
+		int actualPosition = actualNote.getPosition();
+		for (int i=0; i<listSize; i++) {
+			Note someNote = allNotes.get(i);
+			if( someNote.getPosition() == desiredPosition ) {
+				
+				someNote.setPosition(-1);
+				updateNote(someNote);
+				actualNote.setPosition(desiredPosition);
+				someNote.setPosition( actualPosition );
+				updateNote(actualNote);
+				updateNote(someNote);
+				break;
+			}
+			
+		}
+		
+	}
 	
 	
 }

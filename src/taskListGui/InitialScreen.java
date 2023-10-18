@@ -85,7 +85,7 @@ public class InitialScreen extends JFrame {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new AddNote().setVisible(true);
+				new AddNote(allNotes).setVisible(true);
 				dispose();
 			}
 		});
@@ -101,7 +101,7 @@ public class InitialScreen extends JFrame {
 					AbstractButton button = elements.nextElement();
 					if (button.isSelected()) {
 						Note note = allNotes.get(i);
-						new EditNote(note).setVisible(true);
+						new EditNote(note, allNotes).setVisible(true);
 						dispose();
 						break;
 					}
@@ -113,30 +113,25 @@ public class InitialScreen extends JFrame {
 		});
 		
 		panelButtons.add(btnEdit);
-		
+
 		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				@SuppressWarnings("rawtypes")
-				Enumeration elements = bg.getElements();
-				int i=0;
-		        while (elements.hasMoreElements()) {
-		          AbstractButton button = (AbstractButton) elements.nextElement();
-		          if (button.isSelected()) {
-		            Note note = allNotes.get(i);
-		            
-		            con.deleteNote(note);
-		            new InitialScreen().setVisible(true);
-		            dispose();
-		            
-		            break;
-		          }
-		          else {
-			          i++;
-		          }
-		        }
+				Enumeration<AbstractButton> elements = bg.getElements();
+				for (int i=0;i<allNotes.size();i++) {
+					AbstractButton button = elements.nextElement();
+					if (button.isSelected()) {
+						
+				        Note note = allNotes.get(i);
+				        con.deleteNote(note);
+				        new InitialScreen().setVisible(true);
+				        dispose();
+				        break;
+					}
+					
+				}
 				
 			}
 		});
@@ -153,7 +148,7 @@ public class InitialScreen extends JFrame {
 					int position = allNotes.get(i).getPosition();
 					String title = allNotes.get(i).getTitle();
 					
-					String subContent = String.format("%.30s", allNotes.get(i).getContent()) + "..." ;
+					String subContent = String.format("%.30s", allNotes.get(i).getContent()) + " ..." ;
 					
 					String lastChange = allNotes.get(i).getLast_change();
 										

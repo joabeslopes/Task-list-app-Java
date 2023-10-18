@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,7 +29,7 @@ public class EditNote extends JFrame {
 	private JTextField textFieldPosition;
 	private SqliteConnector con = new SqliteConnector();
 
-	public EditNote(Note note) {
+	public EditNote(Note note, List<Note> allNotes) {
 		
 		setResizable(false);
 		setSize(630, 470);
@@ -91,32 +92,72 @@ public class EditNote extends JFrame {
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
+			
+			public int evalPosition() {
+				
+				String positionString = textFieldPosition.getText();
+				int position = 0;
+				int listSize = allNotes.size();
+				
+				if (positionString.equals("")) {
+					position = listSize+1;
+				}
+				else
+				{
+					try {
+						int intValue = Integer.valueOf(positionString);
+						if (listSize > 0 && intValue>listSize || intValue < 0) {
+							JOptionPane.showMessageDialog(textFieldPosition, "Position needs to be greater than 0 and be on the range of notes");
+						}
+						else {
+							position = intValue;
+						}
+						
+					}
+					catch (Exception errorPosition) {
+						JOptionPane.showMessageDialog(textFieldPosition, "Only integer number values are allowed on position");
+					}
+				}
+				
+				return position;
+			}
+			
+			
 			public void actionPerformed(ActionEvent e) {
 				
 				
 				String title = textFieldTitle.getText();
 				String content = textAreaContent.getText();
-				// test if position is a number
-				try {
-					int position = Integer.valueOf(textFieldPosition.getText());
-					
-					note.setTitle(title);
-					note.setContent(content);
-					note.setPosition(position);
-					if (con.updateNote(note)) {
-						new InitialScreen().setVisible(true);
-						dispose();
+				int position = evalPosition();
+				// test if position is a valid number
+				if (position!=0) {
+					if (content.equals("")) 
+					{
+						JOptionPane.showMessageDialog(textFieldPosition, "The note needs to have a content");
 					}
-					else {
-						JOptionPane.showMessageDialog(textFieldPosition, "Only unique number values are allowed on position");
+					else 
+					{
+						
+						if (note.getPosition() != position ) {
+							con.switchPositionEdit(allNotes, note, position);
+						}
+						
+						note.setTitle(title);
+						note.setContent(content);
+						
+						if (con.updateNote(note)) {
+							new InitialScreen().setVisible(true);
+							dispose();
+						}
+						else {
+							JOptionPane.showMessageDialog(textFieldPosition, "Please try again");
+						}
+						
+					
 					}
 					
 				}
-				catch (Exception errorPosition) {
-					JOptionPane.showMessageDialog(textFieldPosition, "Only unique NUMBER values are allowed on position");
-				}
-				
-				
+
 				
 			}
 		});
