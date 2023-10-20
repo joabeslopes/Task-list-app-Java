@@ -9,11 +9,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqliteConnector {
+public class NoteDAO {
 
 	private Connection con;
 	
-	public SqliteConnector(){
+	public NoteDAO(){
 
 		// Create directory if it doesn't exist
 		try {

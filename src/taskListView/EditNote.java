@@ -1,4 +1,4 @@
-package taskListGui;
+package taskListView;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,18 +19,18 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import taskListDao.Note;
-import taskListDao.SqliteConnector;
+import taskListDao.NoteDAO;
 
 
 @SuppressWarnings("serial")
-public class AddNote extends JFrame {
+public class EditNote extends JFrame {
 
 	private JTextField textFieldTitle;
 	private JTextField textFieldPosition;
-	public SqliteConnector con = new SqliteConnector();
+	private NoteDAO con = new NoteDAO();
 
-
-	public AddNote(List<Note> allNotes) {
+	public EditNote(Note note, List<Note> allNotes) {
+		
 		setResizable(false);
 		setSize(630, 470);
 		setLocationRelativeTo(null);
@@ -71,12 +71,12 @@ public class AddNote extends JFrame {
 		lblContent.setBounds(10, 127, 87, 26);
 		background.add(lblContent);
 		
-		textFieldTitle = new JTextField();
+		textFieldTitle = new JTextField( note.getTitle() );
 		textFieldTitle.setBounds(11, 38, 593, 26);
 		background.add(textFieldTitle);
 		textFieldTitle.setColumns(10);
 		
-		textFieldPosition = new JTextField();
+		textFieldPosition = new JTextField( String.valueOf(note.getPosition()) );
 		textFieldPosition.setColumns(10);
 		textFieldPosition.setBounds(10, 95, 87, 26);
 		background.add(textFieldPosition);
@@ -85,7 +85,7 @@ public class AddNote extends JFrame {
 		scrollPaneContent.setBounds(10, 156, 594, 197);
 		background.add(scrollPaneContent);
 		
-		JTextArea textAreaContent = new JTextArea();
+		JTextArea textAreaContent = new JTextArea( note.getContent() );
 		textAreaContent.setLineWrap(true);
 		scrollPaneContent.setViewportView(textAreaContent);
 		
@@ -106,7 +106,7 @@ public class AddNote extends JFrame {
 				{
 					try {
 						int intValue = Integer.valueOf(positionString);
-						if (listSize > 0 && intValue>listSize+1 || intValue < 0) {
+						if (listSize > 0 && intValue>listSize || intValue < 0) {
 							JOptionPane.showMessageDialog(textFieldPosition, "Position needs to be greater than 0 and be on the range of notes");
 						}
 						else {
@@ -137,20 +137,22 @@ public class AddNote extends JFrame {
 					}
 					else 
 					{
-					
-						con.switchPositionAdd(allNotes, position);
-						Note note = new Note();
+						
+						if (note.getPosition() != position ) {
+							con.switchPositionEdit(allNotes, note, position);
+						}
+						
 						note.setTitle(title);
 						note.setContent(content);
-						note.setPosition(position);
 						
-						if (con.addNote(note)) {
+						if (con.updateNote(note)) {
 							new InitialScreen().setVisible(true);
 							dispose();
 						}
 						else {
 							JOptionPane.showMessageDialog(textFieldPosition, "Please try again");
 						}
+						
 					
 					}
 					
@@ -172,7 +174,7 @@ public class AddNote extends JFrame {
 		});
 		panelButtons.add(btnCancel);
 		
-
-		
 	}
+	
+	
 }
