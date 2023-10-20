@@ -11,8 +11,6 @@ import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -27,38 +25,54 @@ import taskListView.InitialScreen;
 public class InitialScreenController {
 
 	// Attributes
-	private InitialScreen init;
-	private NoteDAO con = new NoteDAO();
-	private List<Note> allNotes;
-	
+	private static NoteDAO con = new NoteDAO();
+	private static List<Note> allNotes;
+
 	
 	// Getters and setters
+	public static NoteDAO getCon() {
+		return con;
+	}
+
+	public void setCon(NoteDAO con) {
+		InitialScreenController.con = con;
+	}
 	
 	
+	public static List<Note> getAllNotes() {
+		return allNotes;
+	}
+
+
+	public void setAllNotes(List<Note> allNotes) {
+		InitialScreenController.allNotes = allNotes;
+	}
+
+
 	
 	// Constructor
-	public InitialScreenController(InitialScreen init) {
+	public InitialScreenController(InitialScreen initScreen) {
 		allNotes = con.getAllNotes();
 		
 		// action button add
-		init.getBtnAdd().addActionListener(new ActionListener() {
+		initScreen.getBtnAdd().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new AddNote(allNotes).setVisible(true);
-				init.dispose();
+				new AddNote().setVisible(true);
+				initScreen.dispose();
 			}
 		});
 		
 		// action button edit
-		init.getBtnEdit().addActionListener(new ActionListener() {
+		initScreen.getBtnEdit().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Enumeration<AbstractButton> elements = init.getBg().getElements();
+				Enumeration<AbstractButton> elements = initScreen.getBg().getElements();
 				for (int i=0;i<allNotes.size();i++) {
 					AbstractButton button = elements.nextElement();
 					if (button.isSelected()) {
 						Note note = allNotes.get(i);
 						new EditNote(note, allNotes).setVisible(true);
-						init.dispose();
+						initScreen.dispose();
 						break;
 					}
 					
@@ -69,10 +83,10 @@ public class InitialScreenController {
 		
 		
 		// action button delete
-		init.getBtnDelete().addActionListener(new ActionListener() {
+		initScreen.getBtnDelete().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Enumeration<AbstractButton> elements = init.getBg().getElements();
+				Enumeration<AbstractButton> elements = initScreen.getBg().getElements();
 				for (int i=0;i<allNotes.size();i++) {
 					AbstractButton button = elements.nextElement();
 					if (button.isSelected()) {
@@ -80,7 +94,7 @@ public class InitialScreenController {
 				        Note note = allNotes.get(i);
 				        con.deleteNote(note);
 				        new InitialScreen().setVisible(true);
-				        init.dispose();
+				        initScreen.dispose();
 				        break;
 					}
 					
@@ -91,7 +105,7 @@ public class InitialScreenController {
 
 		
 		// List all notes when the window is shown
-		init.addComponentListener(new ComponentAdapter() {
+		initScreen.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
 				
@@ -109,7 +123,7 @@ public class InitialScreenController {
 					radioButtonPosition.setFont(new Font("Tahoma", Font.BOLD, 14));
 					radioButtonPosition.setBackground(new Color(223, 0, 223));
 					radioButtonPosition.setForeground(new Color(255, 255, 128));
-					init.getBg().add(radioButtonPosition);
+					initScreen.getBg().add(radioButtonPosition);
 					
 					JLabel lblNoteTitle = new JLabel(title);
 					lblNoteTitle.setHorizontalAlignment(SwingConstants.LEFT);
@@ -135,7 +149,7 @@ public class InitialScreenController {
 					notePanel.add(lblNoteLastChange);
 					
 					
-					init.getPanelNotes().add(notePanel);
+					initScreen.getPanelNotes().add(notePanel);
 					
 				}
 				
