@@ -76,6 +76,9 @@ public class AddNote extends JFrame {
 	
 	// Constructor
 	public AddNote() {
+		
+		new AddNoteController(AddNote.this);
+		
 		setResizable(false);
 		setSize(630, 470);
 		setLocationRelativeTo(null);
@@ -134,8 +137,7 @@ public class AddNote extends JFrame {
 
 		panelButtons.add(btnSave);
 		panelButtons.add(btnCancel);
-		
-		new AddNoteController(AddNote.this);
+
 		
 	}
 }

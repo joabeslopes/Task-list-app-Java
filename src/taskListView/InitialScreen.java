@@ -77,6 +77,7 @@ public class InitialScreen extends JFrame {
 	
 	// Constructor
 	public InitialScreen() {
+		new InitialScreenController(InitialScreen.this);
 
 		setResizable(false);
 		setSize(615, 470);
@@ -111,9 +112,6 @@ public class InitialScreen extends JFrame {
 		panelButtons.add(btnEdit);
 		panelButtons.add(btnDelete);
 		
-		
-		
-		new InitialScreenController(InitialScreen.this);
 		
 	}
 }
