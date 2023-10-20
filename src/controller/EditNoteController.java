@@ -1,4 +1,4 @@
-package taskListController;
+package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,10 +8,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import taskListDao.Note;
-import taskListDao.NoteDAO;
-import taskListView.EditNote;
-import taskListView.InitialScreen;
+import dao.Note;
+import dao.NoteDAO;
+import view.EditNote;
+import view.InitialScreen;
 
 public class EditNoteController {
 	

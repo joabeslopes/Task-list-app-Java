@@ -1,4 +1,4 @@
-package taskListController;
+package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,10 +6,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import taskListDao.Note;
-import taskListDao.NoteDAO;
-import taskListView.AddNote;
-import taskListView.InitialScreen;
+import dao.Note;
+import dao.NoteDAO;
+import view.AddNote;
+import view.InitialScreen;
 
 public class AddNoteController {
 	

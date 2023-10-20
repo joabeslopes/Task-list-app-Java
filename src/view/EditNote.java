@@ -1,4 +1,4 @@
-package taskListView;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,8 +14,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import taskListController.EditNoteController;
-import taskListDao.Note;
+import controller.EditNoteController;
+import dao.Note;
 
 
 @SuppressWarnings("serial")

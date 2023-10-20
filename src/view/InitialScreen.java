@@ -1,4 +1,4 @@
-package taskListView;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import taskListController.InitialScreenController;
+import controller.InitialScreenController;
 
 
 @SuppressWarnings("serial")

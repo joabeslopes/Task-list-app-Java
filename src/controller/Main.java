@@ -1,8 +1,8 @@
-package taskListController;
+package controller;
 
 import java.awt.EventQueue;
 
-import taskListView.InitialScreen;
+import view.InitialScreen;
 
 public class Main {
 

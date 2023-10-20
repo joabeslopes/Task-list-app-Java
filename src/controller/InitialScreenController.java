@@ -1,4 +1,4 @@
-package taskListController;
+package controller;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,11 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
-import taskListDao.Note;
-import taskListDao.NoteDAO;
-import taskListView.AddNote;
-import taskListView.EditNote;
-import taskListView.InitialScreen;
+import dao.Note;
+import dao.NoteDAO;
+import view.AddNote;
+import view.EditNote;
+import view.InitialScreen;
 
 public class InitialScreenController {
 

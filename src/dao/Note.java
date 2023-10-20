@@ -1,4 +1,4 @@
-package taskListDao;
+package dao;
 
 public class Note {
 	
