@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.EventQueue;
 
+import model.NoteModel;
 import view.InitialScreen;
 
 public class Main {
@@ -10,8 +11,9 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InitialScreen frame = new InitialScreen();
-					frame.setVisible(true);
+					InitialScreen initScreen = new InitialScreen( new NoteModel() );
+					initScreen.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

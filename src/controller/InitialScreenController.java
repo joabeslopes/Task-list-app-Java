@@ -17,7 +17,7 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
 import dao.Note;
-import dao.NoteDAO;
+import model.NoteModel;
 import view.AddNote;
 import view.EditNote;
 import view.InitialScreen;
@@ -25,39 +25,30 @@ import view.InitialScreen;
 public class InitialScreenController {
 
 	// Attributes
-	private static NoteDAO con = new NoteDAO();
-	private static List<Note> allNotes;
+	private NoteModel noteModel;
+	private List<Note> allNotes;
 
 	
 	// Getters and setters
-	public static NoteDAO getCon() {
-		return con;
+	public NoteModel getNoteModel() {
+		return noteModel;
 	}
 
-	public void setCon(NoteDAO con) {
-		InitialScreenController.con = con;
-	}
-	
-	
-	public static List<Note> getAllNotes() {
-		return allNotes;
+	public void setNoteModel(NoteModel noteModel) {
+		this.noteModel = noteModel;
 	}
 
 
-	public void setAllNotes(List<Note> allNotes) {
-		InitialScreenController.allNotes = allNotes;
-	}
-
-
-	
 	// Constructor
 	public InitialScreenController(InitialScreen initScreen) {
-		allNotes = con.getAllNotes();
+		noteModel = initScreen.getNoteModel();
+		allNotes = noteModel.getAllNotes();
 		
 		// action button add
 		initScreen.getBtnAdd().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new AddNote().setVisible(true);
+				AddNote addNote = new AddNote(noteModel);
+				addNote.setVisible(true);
 				initScreen.dispose();
 			}
 		});
@@ -71,7 +62,9 @@ public class InitialScreenController {
 					AbstractButton button = elements.nextElement();
 					if (button.isSelected()) {
 						Note note = allNotes.get(i);
-						new EditNote(note).setVisible(true);
+						EditNote editNote = new EditNote(note);
+						editNote.setNoteModel(noteModel);
+						editNote.setVisible(true);
 						initScreen.dispose();
 						break;
 					}
@@ -91,9 +84,9 @@ public class InitialScreenController {
 					AbstractButton button = elements.nextElement();
 					if (button.isSelected()) {
 						
-				        Note note = allNotes.get(i);
-				        con.deleteNote(note);
-				        new InitialScreen().setVisible(true);
+				        allNotes.remove(i);
+				        noteModel.updateNotes(allNotes);
+				        new InitialScreen(noteModel).setVisible(true);
 				        initScreen.dispose();
 				        break;
 					}
@@ -160,5 +153,7 @@ public class InitialScreenController {
 		
 		
 	}
+
+	
 	
 }

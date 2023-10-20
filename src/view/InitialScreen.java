@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import controller.InitialScreenController;
+import model.NoteModel;
 
 
 @SuppressWarnings("serial")
@@ -23,9 +24,20 @@ public class InitialScreen extends JFrame {
 	private JButton btnAdd = new JButton("Add");
 	private JButton btnEdit = new JButton("Edit");
 	private JButton btnDelete = new JButton("Delete");
+	private NoteModel noteModel;
 	
-	
+
+
 	// Getters and setters
+	public NoteModel getNoteModel() {
+		return noteModel;
+	}
+
+	public void setNoteModel(NoteModel noteModel) {
+		this.noteModel = noteModel;
+	}
+	
+	
 	public JPanel getPanelButtons() {
 		return panelButtons;
 	}
@@ -76,7 +88,8 @@ public class InitialScreen extends JFrame {
 	
 	
 	// Constructor
-	public InitialScreen() {
+	public InitialScreen( NoteModel noteModel) {
+		this.noteModel = noteModel;
 		new InitialScreenController(InitialScreen.this);
 
 		setResizable(false);

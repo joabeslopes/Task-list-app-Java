@@ -11,6 +11,10 @@ public class NoteDAO {
 	private Connection con = new SqliteConnector().getCon();
 	private List<Note> allNotes;
 
+	public void setAllNotes(List<Note> allNotes) {
+		this.allNotes = allNotes;
+	}
+
 	public List<Note> getAllNotes() {
 		return allNotes;
 	}
@@ -24,6 +28,11 @@ public class NoteDAO {
 	}
 
 
+	public NoteDAO() {
+		sqlGetAllNotes();
+		
+	}
+	
 public void sqlGetAllNotes(){
 
 		allNotes = new ArrayList<Note>();
@@ -155,6 +164,41 @@ public void sqlGetAllNotes(){
 		}
 		
 	}
+	
+	public boolean deleteAllNotes() {
+		
+		String sql = "delete from notes" ;
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.executeUpdate();
+			ps.close();
+			return true;
+		}
+		catch (Exception e) {
+		System.out.println(e.getMessage());
+		return false;
+		}
+		
+	}
+	
+	
+	
+	public void updateAllNotes(List<Note> allTheNotes) {
+		
+		deleteAllNotes();
+		int listSize = allTheNotes.size();
+		
+		for (int i=0; i<listSize; i++) {
+			Note someNote = allTheNotes.get(i);
+			addNote(someNote);
+			
+		}
+
+		
+	}
+	
+	
 	
 	
 }

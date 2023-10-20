@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 
 import controller.EditNoteController;
 import dao.Note;
+import model.NoteModel;
 
 
 @SuppressWarnings("serial")
@@ -28,8 +29,20 @@ public class EditNote extends JFrame {
 	private JTextArea textAreaContent;
 	private JButton btnSave = new JButton("Save");
 	private JButton btnCancel = new JButton("Cancel");
+	private NoteModel noteModel;
+	
+
 
 	// Getters and setters
+	public NoteModel getNoteModel() {
+		return noteModel;
+	}
+
+	public void setNoteModel(NoteModel noteModel) {
+		this.noteModel = noteModel;
+	}
+	
+	
 	public Note getNote() {
 		return note;
 	}

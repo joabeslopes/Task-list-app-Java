@@ -10,22 +10,24 @@ import javax.swing.JTextField;
 
 import dao.Note;
 import dao.NoteDAO;
+import model.NoteModel;
 import view.EditNote;
 import view.InitialScreen;
 
 public class EditNoteController {
 	
 	// Attributes
-	private NoteDAO con;
+	private NoteModel noteModel;
 	private List<Note> allNotes;
+
 	
 	// Getters and setters
-	public NoteDAO getCon() {
-		return con;
+	public NoteModel getNoteModel() {
+		return noteModel;
 	}
 
-	public void setCon(NoteDAO con) {
-		this.con = con;
+	public void setNoteModel(NoteModel noteModel) {
+		this.noteModel = noteModel;
 	}
 	
 	
@@ -40,12 +42,10 @@ public class EditNoteController {
 	
 	
 	
-	// Controller
-	
+	// Constructor
 	public EditNoteController (EditNote editNote) {
-		
-		setCon (InitialScreenController.getCon());
-		setAllNotes(InitialScreenController.getAllNotes());
+
+		allNotes = dao.getAllNotes();
 		Note note = editNote.getNote();
 
 		// Set textFields
@@ -102,13 +102,13 @@ public class EditNoteController {
 					{
 						
 						if (note.getPosition() != position ) {
-							con.switchPositionEdit(allNotes, note, position);
+							dao.switchPositionEdit(allNotes, note, position);
 						}
 						
 						note.setTitle(title);
 						note.setContent(content);
 						
-						if (con.updateNote(note)) {
+						if (dao.updateNote(note)) {
 							new InitialScreen().setVisible(true);
 							editNote.dispose();
 						}

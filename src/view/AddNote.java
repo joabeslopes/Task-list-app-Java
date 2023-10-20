@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import controller.AddNoteController;
+import model.NoteModel;
 
 
 @SuppressWarnings("serial")
@@ -26,9 +27,20 @@ public class AddNote extends JFrame {
 	private JTextArea textAreaContent = new JTextArea();
 	private JButton btnSave = new JButton("Save");
 	private JButton btnCancel = new JButton("Cancel");
+	private NoteModel noteModel;
+	
 
 
 	// Getters and setters
+	public NoteModel getNoteModel() {
+		return noteModel;
+	}
+
+	public void setNoteModel(NoteModel noteModel) {
+		this.noteModel = noteModel;
+	}
+	
+	
 	public JTextField getTextFieldTitle() {
 		return textFieldTitle;
 	}
@@ -75,7 +87,8 @@ public class AddNote extends JFrame {
 	
 	
 	// Constructor
-	public AddNote() {
+	public AddNote(NoteModel noteModel) {
+		this.noteModel = noteModel;
 		
 		new AddNoteController(AddNote.this);
 		
