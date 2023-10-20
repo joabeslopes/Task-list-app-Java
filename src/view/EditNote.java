@@ -98,9 +98,11 @@ public class EditNote extends JFrame {
 
 
 	// Constructor
-	public EditNote(Note noteToEdit) {
+	public EditNote(NoteModel noteModel, Note noteToEdit) {
+		this.noteModel = noteModel;
+		this.note = noteToEdit;
+
 		
-		setNote(noteToEdit);
 		new EditNoteController(EditNote.this);
 		
 		setResizable(false);

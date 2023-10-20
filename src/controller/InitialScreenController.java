@@ -62,7 +62,7 @@ public class InitialScreenController {
 					AbstractButton button = elements.nextElement();
 					if (button.isSelected()) {
 						Note note = allNotes.get(i);
-						EditNote editNote = new EditNote(note);
+						EditNote editNote = new EditNote(noteModel, note);
 						editNote.setNoteModel(noteModel);
 						editNote.setVisible(true);
 						initScreen.dispose();

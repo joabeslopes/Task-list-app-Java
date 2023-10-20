@@ -25,6 +25,7 @@ public class NoteModel {
 	
 	public void updateNotes(List<Note> notes) {
 		noteDao.updateAllNotes(notes);
+		noteDao.sqlGetAllNotes();
 		allNotes = noteDao.getAllNotes();
 		
 	}

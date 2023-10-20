@@ -34,7 +34,7 @@ public class SqliteConnector {
 			String createTableNotes = "CREATE TABLE IF NOT EXISTS notes ("
 					+ "id_note     INTEGER PRIMARY KEY,"
 					+ "title       TEXT,"
-					+ "position    INTEGER UNIQUE NOT NULL,"
+					+ "position    INTEGER NOT NULL,"
 					+ "content     TEXT    NOT NULL,"
 					+ "last_change TEXT"
 					+ ");";

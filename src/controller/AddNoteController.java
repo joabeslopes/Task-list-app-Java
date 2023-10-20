@@ -89,7 +89,7 @@ public class AddNoteController {
 					position = Integer.valueOf( addNote.getTextFieldPosition().getText() );
 				}
 				catch (Exception errorPosition) {
-					JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Only integer number values are allowed on position");
+					JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Position needs a integer number");
 				}
 				
 				// test if position is a valid number

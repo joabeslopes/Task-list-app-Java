@@ -45,7 +45,10 @@ public class EditNoteController {
 	// Constructor
 	public EditNoteController (EditNote editNote) {
 
-		allNotes = dao.getAllNotes();
+		noteModel = editNote.getNoteModel();
+		
+		allNotes = noteModel.getAllNotes();
+		
 		Note note = editNote.getNote();
 
 		// Set textFields
@@ -56,42 +59,49 @@ public class EditNoteController {
 		// Action button save
 		editNote.getBtnSave().addActionListener(new ActionListener() {
 			
-			public int evalPosition() {
-				
-				String positionString = editNote.getTextFieldPosition().getText();
-				int position = 0;
-				int listSize = allNotes.size();
-				
-				if (positionString.equals("")) {
-					position = listSize+1;
-				}
-				else
-				{
-					try {
-						int intValue = Integer.valueOf(positionString);
-						if (listSize > 0 && intValue>listSize || intValue < 0) {
-							JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Position needs to be greater than 0 and be on the range of notes");
-						}
-						else {
-							position = intValue;
-						}
-						
-					}
-					catch (Exception errorPosition) {
-						JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Only integer number values are allowed on position");
-					}
-				}
-				
-				return position;
-			}
-			
+//			public int evalPosition() {
+//				
+//				String positionString = editNote.getTextFieldPosition().getText();
+//				int position = 0;
+//				int listSize = allNotes.size();
+//				
+//				if (positionString.equals("")) {
+//					position = listSize+1;
+//				}
+//				else
+//				{
+//					try {
+//						int intValue = Integer.valueOf(positionString);
+//						if (listSize > 0 && intValue>listSize || intValue < 0) {
+//							JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Position needs to be greater than 0 and be on the range of notes");
+//						}
+//						else {
+//							position = intValue;
+//						}
+//						
+//					}
+//					catch (Exception errorPosition) {
+//						JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Only integer number values are allowed on position");
+//					}
+//				}
+//				
+//				return position;
+//			}
 			
 			public void actionPerformed(ActionEvent e) {
 				
 				
 				String title = editNote.getTextFieldTitle().getText();
 				String content = editNote.getTextAreaContent().getText();
-				int position = evalPosition();
+				int position = 0;
+				try {
+					position = Integer.valueOf( editNote.getTextFieldPosition().getText() );
+				}
+				catch (Exception errorPosition) {
+					JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Position needs a integer number");
+				}
+				
+				
 				// test if position is a valid number
 				if (position!=0) {
 					if (content.equals("")) 
@@ -101,15 +111,22 @@ public class EditNoteController {
 					else 
 					{
 						
-						if (note.getPosition() != position ) {
-							dao.switchPositionEdit(allNotes, note, position);
-						}
+//						if (note.getPosition() != position ) {
+//							dao.switchPositionEdit(allNotes, note, position);
+//						}
 						
 						note.setTitle(title);
 						note.setContent(content);
+						note.setPosition(position);
 						
-						if (dao.updateNote(note)) {
-							new InitialScreen().setVisible(true);
+						allNotes.set(position-1, note);
+						
+						
+						if ( true ) {
+							noteModel.updateNotes(allNotes);
+							InitialScreen initScreen = new InitialScreen(noteModel);
+							initScreen.setNoteModel(noteModel);
+							initScreen.setVisible(true);
 							editNote.dispose();
 						}
 						else {
@@ -129,7 +146,7 @@ public class EditNoteController {
 		// Action button cancel
 		editNote.getBtnCancel().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new InitialScreen().setVisible(true);
+				new InitialScreen(noteModel).setVisible(true);
 				editNote.dispose();
 			}
 		});
