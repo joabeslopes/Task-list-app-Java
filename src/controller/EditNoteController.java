@@ -47,63 +47,37 @@ public class EditNoteController {
 		
 		// Action button save
 		editNote.getBtnSave().addActionListener(new ActionListener() {
-			
-//			public int evalPosition() {
-//				
-//				String positionString = editNote.getTextFieldPosition().getText();
-//				int position = 0;
-//				int listSize = allNotes.size();
-//				
-//				if (positionString.equals("")) {
-//					position = listSize+1;
-//				}
-//				else
-//				{
-//					try {
-//						int intValue = Integer.valueOf(positionString);
-//						if (listSize > 0 && intValue>listSize || intValue < 0) {
-//							JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Position needs to be greater than 0 and be on the range of notes");
-//						}
-//						else {
-//							position = intValue;
-//						}
-//						
-//					}
-//					catch (Exception errorPosition) {
-//						JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Only integer number values are allowed on position");
-//					}
-//				}
-//				
-//				return position;
-//			}
-			
+
 			public void actionPerformed(ActionEvent e) {
 				
 				
 				String title = editNote.getTextFieldTitle().getText();
 				String content = editNote.getTextAreaContent().getText();
+				String positionString = editNote.getTextFieldPosition().getText();
 				int position = 0;
 				try {
-					position = Integer.valueOf( editNote.getTextFieldPosition().getText() );
+
+					if (positionString.equals("")) {
+						int maxPosition = noteModel.getMaxPosition();
+						position = noteModel.getMaxPosition() + 1;
+					}
+					else {
+						position = Integer.valueOf(positionString);
+					}
 				}
 				catch (Exception errorPosition) {
-					JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Position needs to be an integer number");
+					JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Position needs to be an integer number, and greater than 0");
 				}
 				
 				
 				// test if position is a valid number
-				if (position!=0) {
+				if (position>0) {
 					if (content.equals("")) 
 					{
 						JOptionPane.showMessageDialog(editNote.getTextAreaContent(), "The note needs to have a content");
 					}
 					else 
 					{
-						
-//						if (note.getPosition() != position ) {
-//							dao.switchPositionEdit(allNotes, note, position);
-//						}
-						
 						note.setTitle(title);
 						note.setContent(content);
 						note.setPosition(position);
@@ -122,7 +96,9 @@ public class EditNoteController {
 					}
 					
 				}
-
+				else {
+					JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Position needs to be greater than 0");
+				}
 				
 			}
 		});

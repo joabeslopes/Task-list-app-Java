@@ -190,7 +190,23 @@ public class NoteDAO {
 		}
 
 
+	}
 
+	public int getMaxPosition() {
+		
+		String sql = "select max(position) from notes";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			int position = rs.getInt(1);
+			ps.close();
+			return position;
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			return -1;
+		}
+		
 	}
 
 

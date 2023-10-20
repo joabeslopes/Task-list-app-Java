@@ -36,59 +36,38 @@ public class AddNoteController {
 		
 		// Action button add
 		addNote.getBtnSave().addActionListener(new ActionListener() {
-			
-//			public int evalPosition() {
-//				String positionString = addNote.getTextFieldPosition().getText();
-//				int position = 0;
-//				int listSize = allNotes.size();
-//				System.out.println(listSize);
-//				
-//				if (positionString.equals("")) {
-//					position = listSize+1;
-//				}
-//				else
-//				{
-//					try {
-//						int intValue = Integer.valueOf(positionString);
-//						if (listSize > 0 && intValue>listSize+1 || intValue < 0) {
-//							JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Position needs to be greater than 0 and be on the range of notes");
-//						}
-//						else {
-//							position = intValue;
-//						}
-//						
-//					}
-//					catch (Exception errorPosition) {
-//						JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Only integer number values are allowed on position");
-//					}
-//				}
-//				
-//				return position;
-//			}
-			
+
 			public void actionPerformed(ActionEvent e) {
 				
 				
 				String title = addNote.getTextFieldTitle().getText();
 				String content = addNote.getTextAreaContent().getText();
+				String positionString = addNote.getTextFieldPosition().getText();
 				int position = 0;
+				
 				try {
-					position = Integer.valueOf( addNote.getTextFieldPosition().getText() );
+
+					if (positionString.equals("")) {
+						int maxPosition = noteModel.getMaxPosition();
+						position = noteModel.getMaxPosition() + 1;
+					}
+					else {
+						position = Integer.valueOf(positionString);
+					}
 				}
 				catch (Exception errorPosition) {
-					JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Position needs to be an integer number");
+					JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Position needs to be an integer number, and greater than 0");
 				}
 				
 				// test if position is a valid number
-				if (position!=0) {
+				if (position>0) {
 					if (content.equals("")) 
 					{
 						JOptionPane.showMessageDialog(addNote.getTextAreaContent(), "The note needs to have a content");
 					}
 					else 
 					{
-					
-//						dao.switchPositionAdd(allNotes, position);
+
 						Note note = new Note();
 						note.setTitle(title);
 						note.setContent(content);
@@ -106,6 +85,9 @@ public class AddNoteController {
 					
 					}
 					
+				}
+				else {
+					JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Position needs to be greater than 0");
 				}
 
 				

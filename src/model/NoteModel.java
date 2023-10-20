@@ -61,8 +61,12 @@ public class NoteModel {
 			return false;
 		}
 		
+	}
+
+	public int getMaxPosition() {
+		
+		return noteDao.getMaxPosition();
 		
 	}
-	
 
 }
