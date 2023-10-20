@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
@@ -83,7 +84,7 @@ public class InitialScreenController {
 				
 				Enumeration<AbstractButton> elements = initScreen.getBg().getElements();
 				allNotes = noteModel.getAllNotes();
-				
+				boolean isSelected = false;
 				int listSize = allNotes.size();
 				for (int i=0;i<listSize;i++) {
 					AbstractButton button = elements.nextElement();
@@ -94,9 +95,16 @@ public class InitialScreenController {
 						
 				        new InitialScreen().setVisible(true);
 				        initScreen.dispose();
+				        isSelected = true;
 				        break;
 					}
-					
+				}
+				
+				if (!isSelected) {
+					int wantDeleteAll = JOptionPane.showConfirmDialog(initScreen, "Do you want to delete all the notes?");
+					if (wantDeleteAll == 0) {
+						
+					}
 				}
 				
 			}
