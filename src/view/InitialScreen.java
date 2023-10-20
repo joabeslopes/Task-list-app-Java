@@ -24,18 +24,9 @@ public class InitialScreen extends JFrame {
 	private JButton btnAdd = new JButton("Add");
 	private JButton btnEdit = new JButton("Edit");
 	private JButton btnDelete = new JButton("Delete");
-	private NoteModel noteModel;
 	
 
-
 	// Getters and setters
-	public NoteModel getNoteModel() {
-		return noteModel;
-	}
-
-	public void setNoteModel(NoteModel noteModel) {
-		this.noteModel = noteModel;
-	}
 	
 	
 	public JPanel getPanelButtons() {
@@ -88,8 +79,8 @@ public class InitialScreen extends JFrame {
 	
 	
 	// Constructor
-	public InitialScreen( NoteModel noteModel) {
-		this.noteModel = noteModel;
+	public InitialScreen( ) {
+//		this.noteModel = noteModel;
 		new InitialScreenController(InitialScreen.this);
 
 		setResizable(false);

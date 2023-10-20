@@ -41,13 +41,12 @@ public class InitialScreenController {
 
 	// Constructor
 	public InitialScreenController(InitialScreen initScreen) {
-		noteModel = initScreen.getNoteModel();
-		allNotes = noteModel.getAllNotes();
+		noteModel = new NoteModel();
 		
 		// action button add
 		initScreen.getBtnAdd().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddNote addNote = new AddNote(noteModel);
+				AddNote addNote = new AddNote();
 				addNote.setVisible(true);
 				initScreen.dispose();
 			}
@@ -58,12 +57,15 @@ public class InitialScreenController {
 			public void actionPerformed(ActionEvent e) {
 
 				Enumeration<AbstractButton> elements = initScreen.getBg().getElements();
-				for (int i=0;i<allNotes.size();i++) {
+				
+				allNotes = noteModel.getAllNotes();
+				
+				int listSize = allNotes.size();
+				for (int i=0;i<listSize;i++) {
 					AbstractButton button = elements.nextElement();
 					if (button.isSelected()) {
 						Note note = allNotes.get(i);
-						EditNote editNote = new EditNote(noteModel, note);
-						editNote.setNoteModel(noteModel);
+						EditNote editNote = new EditNote(note);
 						editNote.setVisible(true);
 						initScreen.dispose();
 						break;
@@ -80,13 +82,17 @@ public class InitialScreenController {
 			public void actionPerformed(ActionEvent e) {
 				
 				Enumeration<AbstractButton> elements = initScreen.getBg().getElements();
-				for (int i=0;i<allNotes.size();i++) {
+				allNotes = noteModel.getAllNotes();
+				
+				int listSize = allNotes.size();
+				for (int i=0;i<listSize;i++) {
 					AbstractButton button = elements.nextElement();
 					if (button.isSelected()) {
+						Note note = allNotes.get(i);
 						
-				        allNotes.remove(i);
-				        noteModel.updateNotes(allNotes);
-				        new InitialScreen(noteModel).setVisible(true);
+						noteModel.deleteNote(note);
+						
+				        new InitialScreen().setVisible(true);
 				        initScreen.dispose();
 				        break;
 					}
@@ -102,16 +108,18 @@ public class InitialScreenController {
 			@Override
 			public void componentShown(ComponentEvent e) {
 				
-				for (int i=0; i<allNotes.size(); i++) {
-					
+				allNotes = noteModel.getAllNotes();
+				int listSize = allNotes.size();
+				for (int i=0;i<listSize;i++) {
+
 					int position = allNotes.get(i).getPosition();
 					String title = allNotes.get(i).getTitle();
-					
+
 					String subContent = String.format("%.30s", allNotes.get(i).getContent()) + " ..." ;
-					
+
 					String lastChange = allNotes.get(i).getLast_change();
-										
-					
+
+
 					JRadioButton radioButtonPosition = new JRadioButton(String.valueOf(position));
 					radioButtonPosition.setFont(new Font("Tahoma", Font.BOLD, 14));
 					radioButtonPosition.setBackground(new Color(223, 0, 223));

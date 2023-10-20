@@ -18,7 +18,7 @@ public class EditNoteController {
 	
 	// Attributes
 	private NoteModel noteModel;
-	private List<Note> allNotes;
+//	private List<Note> allNotes;
 
 	
 	// Getters and setters
@@ -29,25 +29,14 @@ public class EditNoteController {
 	public void setNoteModel(NoteModel noteModel) {
 		this.noteModel = noteModel;
 	}
-	
-	
-	public List<Note> getAllNotes() {
-		return allNotes;
-	}
 
-
-	public void setAllNotes(List<Note> allNotes) {
-		this.allNotes = allNotes;
-	}
 	
 	
 	
 	// Constructor
 	public EditNoteController (EditNote editNote) {
 
-		noteModel = editNote.getNoteModel();
-		
-		allNotes = noteModel.getAllNotes();
+		noteModel = new NoteModel();
 		
 		Note note = editNote.getNote();
 
@@ -98,7 +87,7 @@ public class EditNoteController {
 					position = Integer.valueOf( editNote.getTextFieldPosition().getText() );
 				}
 				catch (Exception errorPosition) {
-					JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Position needs a integer number");
+					JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Position needs to be an integer number");
 				}
 				
 				
@@ -119,13 +108,9 @@ public class EditNoteController {
 						note.setContent(content);
 						note.setPosition(position);
 						
-						allNotes.set(position-1, note);
 						
-						
-						if ( true ) {
-							noteModel.updateNotes(allNotes);
-							InitialScreen initScreen = new InitialScreen(noteModel);
-							initScreen.setNoteModel(noteModel);
+						if ( noteModel.updateNote(note) ) {
+							InitialScreen initScreen = new InitialScreen();
 							initScreen.setVisible(true);
 							editNote.dispose();
 						}
@@ -146,7 +131,7 @@ public class EditNoteController {
 		// Action button cancel
 		editNote.getBtnCancel().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new InitialScreen(noteModel).setVisible(true);
+				new InitialScreen().setVisible(true);
 				editNote.dispose();
 			}
 		});

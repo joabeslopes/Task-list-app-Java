@@ -20,13 +20,47 @@ public class NoteModel {
 	}
 	
 	public NoteModel() {
-		allNotes = noteDao.getAllNotes();
+		allNotes = noteDao.sqlGetAllNotes();
+	}
+
+	public void updateAllNotes(List<Note> notes) {
+		noteDao.updateAllNotes(notes);
+		allNotes = noteDao.sqlGetAllNotes();
+		
 	}
 	
-	public void updateNotes(List<Note> notes) {
-		noteDao.updateAllNotes(notes);
-		noteDao.sqlGetAllNotes();
-		allNotes = noteDao.getAllNotes();
+	public void deleteNote(Note note) {
+		allNotes.remove(note);
+		noteDao.deleteNote(note);
+		
+	}
+	
+	public boolean addNote(Note note) {
+	
+		try {
+			noteDao.addNote(note);
+			//allNotes = noteDao.sqlGetAllNotes();
+			return true;
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		
+	}
+	
+	public boolean updateNote(Note note) {
+
+		try {
+			noteDao.updateNote(note);
+			//allNotes = noteDao.sqlGetAllNotes();
+			return true;
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		
 		
 	}
 	
