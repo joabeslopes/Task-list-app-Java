@@ -7,36 +7,42 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import dao.Note;
-import model.NoteModel;
+import dao.NoteDAO;
+import model.Note;
 import view.EditNote;
 import view.InitialScreen;
 
 public class EditNoteController {
 	
 	// Attributes
-	private NoteModel noteModel;
-
+	private NoteDAO noteDao;
+	Note note;
+	
 	
 	// Getters and setters
-	public NoteModel getNoteModel() {
-		return noteModel;
+	
+	public Note getNote() {
+		return note;
 	}
 
-	public void setNoteModel(NoteModel noteModel) {
-		this.noteModel = noteModel;
+
+	public void setNote(Note note) {
+		this.note = note;
 	}
 
-	
-	
-	
-	// Constructor
-	public EditNoteController (EditNote editNote) {
 
-		noteModel = new NoteModel();
+	public NoteDAO getNoteDao() {
+		return noteDao;
+	}
+
+
+	public void setNoteDao(NoteDAO noteDao) {
+		this.noteDao = noteDao;
+	}
+	
+	public EditNoteController(EditNote editNote) {
 		
-		Note note = editNote.getNote();
-
+		this.note = editNote.getNote();
 		// Set textFields
 		editNote.setTextFieldTitle( new JTextField(note.getTitle()) );
 		editNote.setTextFieldPosition( new JTextField( String.valueOf(note.getPosition()) ) );
@@ -55,8 +61,8 @@ public class EditNoteController {
 				try {
 
 					if (positionString.equals("")) {
-						int maxPosition = noteModel.getMaxPosition();
-						position = noteModel.getMaxPosition() + 1;
+						int maxPosition = noteDao.getMaxPosition();
+						position = maxPosition + 1;
 					}
 					else {
 						position = Integer.valueOf(positionString);
@@ -80,7 +86,7 @@ public class EditNoteController {
 						note.setPosition(position);
 						
 						
-						if ( noteModel.updateNote(note) ) {
+						if ( noteDao.updateNote(note) ) {
 							InitialScreen initScreen = new InitialScreen();
 							initScreen.setVisible(true);
 							editNote.dispose();
@@ -94,7 +100,7 @@ public class EditNoteController {
 					
 				}
 				else {
-					JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Position needs to be greater than 0");
+					JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Please try again");
 				}
 				
 			}
@@ -108,9 +114,6 @@ public class EditNoteController {
 				editNote.dispose();
 			}
 		});
-		
-		
-		
 	}
 
 }

@@ -112,7 +112,7 @@ public class InitialScreen extends JFrame {
 		panelButtons.add(btnAdd);
 		panelButtons.add(btnEdit);
 		panelButtons.add(btnDelete);
-		
+
 		
 	}
 }

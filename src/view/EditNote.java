@@ -15,23 +15,32 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import controller.EditNoteController;
-import dao.Note;
+import model.Note;
 
 
 @SuppressWarnings("serial")
 public class EditNote extends JFrame {
 
 	// Attributes
-	private Note note;
 	private JTextField textFieldTitle;
 	private JTextField textFieldPosition;
 	private JTextArea textAreaContent;
 	private JButton btnSave = new JButton("Save");
 	private JButton btnCancel = new JButton("Cancel");
+	private Note note;
+	private EditNoteController editNoteController;
+
+
 	
-
-
 	// Getters and setters
+	public EditNoteController getEditNoteController() {
+		return editNoteController;
+	}
+
+	public void setEditNoteController(EditNoteController editNoteController) {
+		this.editNoteController = editNoteController;
+	}
+
 	public Note getNote() {
 		return note;
 	}
@@ -39,7 +48,6 @@ public class EditNote extends JFrame {
 	public void setNote(Note note) {
 		this.note = note;
 	}
-
 
 	public JTextField getTextFieldTitle() {
 		return textFieldTitle;
@@ -87,10 +95,9 @@ public class EditNote extends JFrame {
 
 
 	// Constructor
-	public EditNote(Note noteToEdit) {
-		this.note = noteToEdit;
-		
-		new EditNoteController(EditNote.this);
+	public EditNote(Note note) {
+		this.note = note;
+		editNoteController = new EditNoteController(EditNote.this);
 		
 		setResizable(false);
 		setSize(630, 470);
@@ -158,7 +165,7 @@ public class EditNote extends JFrame {
 		panelButtons.add(btnSave);
 		panelButtons.add(btnCancel);
 
-		
+
 	}
 	
 }

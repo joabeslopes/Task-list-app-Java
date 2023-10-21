@@ -5,30 +5,30 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import dao.Note;
-import model.NoteModel;
+import dao.NoteDAO;
+import model.Note;
 import view.AddNote;
 import view.InitialScreen;
 
 public class AddNoteController {
 	
 	// Attributes
-	private NoteModel noteModel;
+	private NoteDAO noteDao;
 	
 	// Getters and setters
-	public NoteModel getNoteModel() {
-		return noteModel;
+
+	public NoteDAO getNoteDao() {
+		return noteDao;
 	}
 
-	public void setNoteModel(NoteModel noteModel) {
-		this.noteModel = noteModel;
-	}
-	
-	
+
+	public void setNoteDao(NoteDAO noteDao) {
+		this.noteDao = noteDao;
+	}	
 	// Constructor
 	public AddNoteController (AddNote addNote) {
 		
-		noteModel = new NoteModel();
+		
 		
 		// Action button add
 		addNote.getBtnSave().addActionListener(new ActionListener() {
@@ -40,12 +40,13 @@ public class AddNoteController {
 				String content = addNote.getTextAreaContent().getText();
 				String positionString = addNote.getTextFieldPosition().getText();
 				int position = 0;
+				int maxPosition = 0;
 				
 				try {
 
 					if (positionString.equals("")) {
-						int maxPosition = noteModel.getMaxPosition();
-						position = noteModel.getMaxPosition() + 1;
+						maxPosition = noteDao.getMaxPosition();
+						position = maxPosition + 1;
 					}
 					else {
 						position = Integer.valueOf(positionString);
@@ -70,7 +71,7 @@ public class AddNoteController {
 						note.setPosition(position);
 						
 						
-						if ( noteModel.addNote(note) ) {
+						if ( noteDao.addNote(note) ) {
 							InitialScreen initScreen = new InitialScreen();
 							initScreen.setVisible(true);
 							addNote.dispose();
@@ -83,7 +84,7 @@ public class AddNoteController {
 					
 				}
 				else {
-					JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Position needs to be greater than 0");
+					JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Please try again");
 				}
 
 				

@@ -6,10 +6,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Note;
+
 public class NoteDAO {
 
 	private Connection con = new SqliteConnector().getCon();
 
+	
 	public Connection getCon() {
 		return con;
 	}
@@ -19,7 +22,7 @@ public class NoteDAO {
 	}
 
 
-	public List<Note> sqlGetAllNotes(){
+	public List<Note> getAllNotes(){
 
 		List<Note> allNotes = new ArrayList<Note>();
 

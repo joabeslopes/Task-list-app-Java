@@ -26,10 +26,17 @@ public class AddNote extends JFrame {
 	private JTextArea textAreaContent = new JTextArea();
 	private JButton btnSave = new JButton("Save");
 	private JButton btnCancel = new JButton("Cancel");
+	private AddNoteController addNoteController = new AddNoteController(AddNote.this);
 	
 
-
 	// Getters and setters
+	public AddNoteController getAddNoteController() {
+		return addNoteController;
+	}
+
+	public void setAddNoteController(AddNoteController addNoteController) {
+		this.addNoteController = addNoteController;
+	}
 	
 	public JTextField getTextFieldTitle() {
 		return textFieldTitle;
@@ -78,8 +85,6 @@ public class AddNote extends JFrame {
 	
 	// Constructor
 	public AddNote() {
-		
-		new AddNoteController(AddNote.this);
 		
 		setResizable(false);
 		setSize(630, 470);
