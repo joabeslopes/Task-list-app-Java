@@ -2,7 +2,6 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -15,9 +14,6 @@ public class AddNoteController {
 	
 	// Attributes
 	private NoteModel noteModel;
-//	private List<Note> allNotes;
-	
-	
 	
 	// Getters and setters
 	public NoteModel getNoteModel() {

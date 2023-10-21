@@ -29,7 +29,6 @@ public class SqliteConnector {
 		String url="jdbc:sqlite:database/notes.db";
 
 		try {
-			//Class.forName("org.sqlite.jdbc4");
 
 			String createTableNotes = "CREATE TABLE IF NOT EXISTS notes ("
 					+ "id_note     INTEGER PRIMARY KEY,"

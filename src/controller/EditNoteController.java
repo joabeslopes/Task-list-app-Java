@@ -2,14 +2,12 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import dao.Note;
-import dao.NoteDAO;
 import model.NoteModel;
 import view.EditNote;
 import view.InitialScreen;
@@ -18,7 +16,6 @@ public class EditNoteController {
 	
 	// Attributes
 	private NoteModel noteModel;
-//	private List<Note> allNotes;
 
 	
 	// Getters and setters

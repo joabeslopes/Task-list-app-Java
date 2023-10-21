@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import controller.InitialScreenController;
-import model.NoteModel;
 
 
 @SuppressWarnings("serial")
@@ -27,8 +26,6 @@ public class InitialScreen extends JFrame {
 	
 
 	// Getters and setters
-	
-	
 	public JPanel getPanelButtons() {
 		return panelButtons;
 	}

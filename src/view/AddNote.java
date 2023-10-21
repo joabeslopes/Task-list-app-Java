@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import controller.AddNoteController;
-import model.NoteModel;
 
 
 @SuppressWarnings("serial")

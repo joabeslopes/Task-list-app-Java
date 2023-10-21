@@ -16,7 +16,6 @@ import javax.swing.SwingConstants;
 
 import controller.EditNoteController;
 import dao.Note;
-import model.NoteModel;
 
 
 @SuppressWarnings("serial")
@@ -33,8 +32,6 @@ public class EditNote extends JFrame {
 
 
 	// Getters and setters
-	
-	
 	public Note getNote() {
 		return note;
 	}
