@@ -57,15 +57,23 @@ public class EditNoteController {
 				String title = editNote.getTextFieldTitle().getText();
 				String content = editNote.getTextAreaContent().getText();
 				String positionString = editNote.getTextFieldPosition().getText();
-				int position = 0;
+				Integer position = null;
+				Integer maxPosition = null;
+				
 				try {
 
 					if (positionString.equals("")) {
-						int maxPosition = noteDao.getMaxPosition();
+						maxPosition = noteDao.getMaxPosition();
 						position = maxPosition + 1;
 					}
 					else {
-						position = Integer.valueOf(positionString);
+						if (Integer.valueOf(positionString) > 0) {
+							position = Integer.valueOf(positionString);
+						}
+						else {
+							JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Position needs to be an integer number, and greater than 0");
+						}
+						
 					}
 				}
 				catch (Exception errorPosition) {
@@ -73,8 +81,7 @@ public class EditNoteController {
 				}
 				
 				
-				// test if position is a valid number
-				if (position>0) {
+				// check if there is content
 					if (content.equals("")) 
 					{
 						JOptionPane.showMessageDialog(editNote.getTextAreaContent(), "The note needs to have a content");
@@ -98,10 +105,8 @@ public class EditNoteController {
 					
 					}
 					
-				}
-				else {
-					JOptionPane.showMessageDialog(editNote.getTextFieldPosition(), "Please try again");
-				}
+				
+				
 				
 			}
 		});

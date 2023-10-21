@@ -39,8 +39,8 @@ public class AddNoteController {
 				String title = addNote.getTextFieldTitle().getText();
 				String content = addNote.getTextAreaContent().getText();
 				String positionString = addNote.getTextFieldPosition().getText();
-				int position = 0;
-				int maxPosition = 0;
+				Integer position = null;
+				Integer maxPosition = null;
 				
 				try {
 
@@ -49,15 +49,20 @@ public class AddNoteController {
 						position = maxPosition + 1;
 					}
 					else {
-						position = Integer.valueOf(positionString);
+						if (Integer.valueOf(positionString) > 0) {
+							position = Integer.valueOf(positionString);
+						}
+						else {
+							JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Position needs to be an integer number, and greater than 0");
+						}
+						
 					}
 				}
 				catch (Exception errorPosition) {
 					JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Position needs to be an integer number, and greater than 0");
 				}
 				
-				// test if position is a valid number
-				if (position>0) {
+				// check if there is content
 					if (content.equals("")) 
 					{
 						JOptionPane.showMessageDialog(addNote.getTextAreaContent(), "The note needs to have a content");
@@ -81,11 +86,6 @@ public class AddNoteController {
 						}
 					
 					}
-					
-				}
-				else {
-					JOptionPane.showMessageDialog(addNote.getTextFieldPosition(), "Please try again");
-				}
 
 				
 			}
