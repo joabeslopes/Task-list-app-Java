@@ -39,7 +39,6 @@ public class NoteModel {
 	
 		try {
 			noteDao.addNote(note);
-			//allNotes = noteDao.sqlGetAllNotes();
 			return true;
 		}
 		catch (Exception e) {
@@ -53,7 +52,6 @@ public class NoteModel {
 
 		try {
 			noteDao.updateNote(note);
-			//allNotes = noteDao.sqlGetAllNotes();
 			return true;
 		}
 		catch (Exception e) {
@@ -68,5 +66,19 @@ public class NoteModel {
 		return noteDao.getMaxPosition();
 		
 	}
+	
+	public boolean deleteAllNotes() {
+		
+		try {
+			noteDao.deleteAllNotes();
+			return true;
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		
+	}
+	
 
 }

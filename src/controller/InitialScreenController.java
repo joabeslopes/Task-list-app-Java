@@ -101,8 +101,11 @@ public class InitialScreenController {
 				}
 				
 				if (!isSelected) {
-					int wantDeleteAll = JOptionPane.showConfirmDialog(initScreen, "Do you want to delete all the notes?");
+					int wantDeleteAll = JOptionPane.showConfirmDialog(initScreen, "Do you want to delete all the notes?", "Confirm choice", JOptionPane.YES_NO_OPTION );
 					if (wantDeleteAll == 0) {
+						noteModel.deleteAllNotes();
+						new InitialScreen().setVisible(true);
+				        initScreen.dispose();
 						
 					}
 				}
